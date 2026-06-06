@@ -13,6 +13,7 @@ import {
     faLock,
     faKey,
     faEye,
+    faPersonWalking,
     faEyeSlash,
     faRightFromBracket,
     faXmark,
