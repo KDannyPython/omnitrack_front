@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+﻿import React, { useState, useRef, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faEnvelope,
@@ -9,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./ForgotPassword.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
@@ -48,7 +51,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({ onBack, onSu
             setError("");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/send-reset-code",
+                `${API_URL}/api/User/send-reset-code`,
                 {
                     method: "POST",
                     headers: {
@@ -218,7 +221,7 @@ export const VerifyCodePage: React.FC<VerifyCodeProps> = ({
     const handleResend = async () => {
         try {
             await fetch(
-                "http://localhost:5004/api/User/send-reset-code",
+                `${API_URL}/api/User/send-reset-code`,
                 {
                     method: "POST",
                     headers: {
@@ -363,7 +366,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordProps> = ({
         try {
             setLoading(true);
             const response = await fetch(
-                "http://localhost:5004/api/User/reset-password",
+                `${API_URL}/api/User/reset-password`,
                 {
                     method: "POST",
                     headers: {

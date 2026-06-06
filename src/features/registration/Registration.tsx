@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faUser,
@@ -9,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./Registration.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const UserIcon = () => (
     <FontAwesomeIcon icon={faUser} className="input-icon" />
@@ -76,7 +79,7 @@ const RegisterPage: React.FC = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5004/api/reg",
+                `${API_URL}/api/reg`,
                 {
                     method: "POST",
                     headers: {

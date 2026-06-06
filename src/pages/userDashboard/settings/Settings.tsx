@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
+
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -38,6 +39,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./Settings.css";
 import "../UserDashboard.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // ─── Toggle component ─────────────────────────────────────────────────────────
 const Toggle = ({ checked, onChange }: { checked: boolean; onChange: () => void }) => (
@@ -133,7 +136,7 @@ const SettingsPage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/me",
+                `${API_URL}/api/User/me`,
                 {
                     method: "GET",
                     headers: {
@@ -168,7 +171,7 @@ const SettingsPage: React.FC = () => {
 
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/User/reset-data", {
+            const response = await fetch(`${API_URL}/api/User/reset-data`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -193,7 +196,7 @@ const SettingsPage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/request-delete",
+                `${API_URL}/api/User/request-delete`,
                 {
                     method: "POST",
                     headers: {
@@ -265,7 +268,7 @@ const SettingsPage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/me",
+                `${API_URL}/api/User/me`,
                 {
                     method: "DELETE",
                     headers: {
@@ -317,7 +320,7 @@ const SettingsPage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/me",
+                `${API_URL}/api/User/me`,
                 {
                     method: "PATCH",
                     headers: {
@@ -345,7 +348,7 @@ const SettingsPage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/me",
+                `${API_URL}/api/User/me`,
                 {
                     method: "PATCH",
                     headers: {
@@ -398,7 +401,7 @@ const SettingsPage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/change-password",
+                `${API_URL}/api/User/change-password`,
                 {
                     method: "PATCH",
                     headers: {
@@ -626,7 +629,7 @@ const SettingsPage: React.FC = () => {
                                                     localStorage.getItem("token");
 
                                                 await fetch(
-                                                    "http://localhost:5004/api/User/me",
+                                                    `${API_URL}/api/User/me`,
                                                     {
                                                         method: "PATCH",
 

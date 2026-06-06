@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faAppleWhole,
@@ -12,6 +13,8 @@ import {
     faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
 import { FoodItem, FoodLog, MealTime } from "./types";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface CaloriesModalProps {
     foodLog: FoodLog[];
@@ -84,7 +87,7 @@ const CaloriesModal: React.FC<CaloriesModalProps> = ({ foodLog, onClose, onAddFo
         const fetchFoods = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await fetch(`http://localhost:5004/api/UsdaFood/search-usda?query=${encodeURIComponent(search)}`, {
+                const response = await fetch(`${API_URL}/api/UsdaFood/search-usda?query=${encodeURIComponent(search)}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -149,7 +152,7 @@ const CaloriesModal: React.FC<CaloriesModalProps> = ({ foodLog, onClose, onAddFo
 
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/FoodLog/create", {
+            const response = await fetch(`${API_URL}/api/FoodLog/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

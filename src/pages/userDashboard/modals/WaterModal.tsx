@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faDroplet, faGlassWater, faXmark, faCoffee } from "@fortawesome/free-solid-svg-icons";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface WaterModalProps {
     waterMl: number;
@@ -47,7 +50,7 @@ const WaterModal: React.FC<WaterModalProps> = ({ waterMl, waterMax, onClose, onU
     const add = async (ml: number) => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/WaterLog/add", {
+            const response = await fetch(`${API_URL}/api/WaterLog/add`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,7 +73,7 @@ const WaterModal: React.FC<WaterModalProps> = ({ waterMl, waterMax, onClose, onU
     const sub = async (ml: number) => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/WaterLog/remove", {
+            const response = await fetch(`${API_URL}/api/WaterLog/remove`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

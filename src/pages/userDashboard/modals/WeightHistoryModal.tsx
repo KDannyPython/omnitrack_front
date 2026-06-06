@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faXmark,
@@ -10,6 +11,8 @@ import {
     faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import "./WeightHistoryModal.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 interface WeightEntry {
@@ -45,7 +48,7 @@ const WeightHistoryModal: React.FC<WeightHistoryModalProps> = ({
     const fetchHistory = async () => {
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:5004/api/WeightLog/history", {
+            const res = await fetch(`${API_URL}/api/WeightLog/history`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (res.ok) {
@@ -72,7 +75,7 @@ const WeightHistoryModal: React.FC<WeightHistoryModalProps> = ({
         setIsLogging(true);
         setLogError("");
         try {
-            const res = await fetch("http://localhost:5004/api/WeightLog", {
+            const res = await fetch(`${API_URL}/api/WeightLog`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faDumbbell,
@@ -16,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import "./Calendar.css";
 import "../UserDashboard.css";
 import WorkoutDetailsModal from "../modals/WorkoutDetailsModal";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -269,7 +272,7 @@ const CalendarPage: React.FC = () => {
             try {
                 const token = localStorage.getItem("token");
                 if (!token) return;
-                const response = await fetch("http://localhost:5004/api/user/me", {
+                const response = await fetch(`${API_URL}/api/user/me`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -294,7 +297,7 @@ const CalendarPage: React.FC = () => {
                 const token = localStorage.getItem("token");
 
                 const response = await fetch(
-                    `http://localhost:5004/api/calendar/month?year=${year}&month=${month + 1}`,
+                    `${API_URL}/api/calendar/month?year=${year}&month=${month + 1}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -509,7 +512,7 @@ const CalendarPage: React.FC = () => {
                                                 `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
                                             const response = await fetch(
-                                                `http://localhost:5004/api/calendar/day/${formatted}`,
+                                                `${API_URL}/api/calendar/day/${formatted}`,
                                                 {
                                                     headers: {
                                                         Authorization: `Bearer ${token}`

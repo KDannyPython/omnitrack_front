@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHouse,
@@ -29,6 +30,8 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import "../UserDashboard.css";
 import WorkoutDetailsModal from "../modals/WorkoutDetailsModal";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
@@ -87,7 +90,7 @@ const ProfilePage: React.FC = () => {
                 navigate("/login");
                 return;
             }
-            const response = await fetch("http://localhost:5004/api/user/me", {
+            const response = await fetch(`${API_URL}/api/user/me`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -110,7 +113,7 @@ const ProfilePage: React.FC = () => {
     const fetchWeightHistory = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/WeightLog/history?limit=5", {
+            const response = await fetch(`${API_URL}/api/WeightLog/history?limit=5`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -125,7 +128,7 @@ const ProfilePage: React.FC = () => {
     const fetchRecentWorkouts = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/workout/list", {
+            const response = await fetch(`${API_URL}/api/workout/list`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -143,7 +146,7 @@ const ProfilePage: React.FC = () => {
         if (!window.confirm("Are you sure you want to delete this weight log?")) return;
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5004/api/WeightLog/${id}`, {
+            const res = await fetch(`${API_URL}/api/WeightLog/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -162,7 +165,7 @@ const ProfilePage: React.FC = () => {
         if (!window.confirm("Are you sure you want to delete this workout?")) return;
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5004/api/workout/delete/${id}`, {
+            const res = await fetch(`${API_URL}/api/workout/delete/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -197,7 +200,7 @@ const ProfilePage: React.FC = () => {
     const handleSaveTraits = async () => {
         try {
             // Updateăm gender, age, height
-            const response = await fetch("http://localhost:5004/api/user/me", {
+            const response = await fetch(`${API_URL}/api/user/me`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -218,7 +221,7 @@ const ProfilePage: React.FC = () => {
 
             // Dacă greutatea s-a schimbat, logăm și în WeightLog
             if (editedWeight !== user?.weight) {
-                await fetch("http://localhost:5004/api/WeightLog", {
+                await fetch(`${API_URL}/api/WeightLog`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -241,7 +244,7 @@ const ProfilePage: React.FC = () => {
     // Salvăm descrierea (Bio) în DB
     const handleSaveBio = async () => {
         try {
-            const response = await fetch("http://localhost:5004/api/user/me", {
+            const response = await fetch(`${API_URL}/api/user/me`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -290,7 +293,7 @@ const ProfilePage: React.FC = () => {
         setIsUpdatingPassword(true);
         try {
             const response = await fetch(
-                "http://localhost:5004/api/User/change-password",
+                `${API_URL}/api/User/change-password`,
                 {
                     method: "PATCH",
                     headers: {
@@ -335,7 +338,7 @@ const ProfilePage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/request-delete",
+                `${API_URL}/api/User/request-delete`,
                 {
                     method: "POST",
                     headers: {
@@ -407,7 +410,7 @@ const ProfilePage: React.FC = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5004/api/User/me",
+                `${API_URL}/api/User/me`,
                 {
                     method: "DELETE",
                     headers: {

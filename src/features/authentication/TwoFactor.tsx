@@ -1,8 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+﻿import React, { useState, useRef, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faShield, faCircleInfo, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./TwoFactor.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Functie pentru decodarea JWT
 function parseJwt(token: string) {
@@ -92,7 +95,7 @@ export default function TwoFactorPage() {
             setError("");
 
             const response = await fetch(
-                "http://localhost:5004/api/session/verify-2fa",
+                `${API_URL}/api/session/verify-2fa`,
                 {
                     method: "POST",
                     headers: {

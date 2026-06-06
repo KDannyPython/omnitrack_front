@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHouse,
@@ -27,6 +28,8 @@ import CaloriesModal from "./modals/CaloriesModal";
 import WaterModal from "./modals/WaterModal";
 import WorkoutsModal from "./modals/WorkoutsModal";
 import { FoodLog, WorkoutLog, WorkoutType } from "./modals/types";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // ─── Chart Data ───────────────────────────────────────────────────────────────
 
@@ -179,7 +182,7 @@ const UserDashboard: React.FC = () => {
 
     const fetchWeightHistory = async () => {
         try {
-            const res = await fetch("http://localhost:5004/api/WeightLog/history?limit=7", {
+            const res = await fetch(`${API_URL}/api/WeightLog/history?limit=7`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) {
@@ -204,7 +207,7 @@ const UserDashboard: React.FC = () => {
         if (isNaN(val) || val <= 0) return;
 
         try {
-            const response = await fetch("http://localhost:5004/api/WeightLog", {
+            const response = await fetch(`${API_URL}/api/WeightLog`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -240,7 +243,7 @@ const UserDashboard: React.FC = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(
-                "http://localhost:5004/api/workout/list",
+                `${API_URL}/api/workout/list`,
                 {
                     method: "GET",
                     headers: {
@@ -297,7 +300,7 @@ const UserDashboard: React.FC = () => {
                 const month = String(d.getMonth() + 1).padStart(2, "0");
                 const day = String(d.getDate()).padStart(2, "0");
                 const formatted = `${year}-${month}-${day}`;
-                return fetch(`http://localhost:5004/api/calendar/day/${formatted}`, {
+                return fetch(`${API_URL}/api/calendar/day/${formatted}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }).then(res => {
                     if (res.ok) return res.json();
@@ -328,7 +331,7 @@ const UserDashboard: React.FC = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(
-                "http://localhost:5004/api/WaterLog/today",
+                `${API_URL}/api/WaterLog/today`,
                 {
                     method: "GET",
                     headers: {
@@ -353,7 +356,7 @@ const UserDashboard: React.FC = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(
-                "http://localhost:5004/api/FoodLog/today",
+                `${API_URL}/api/FoodLog/today`,
                 {
                     method: "GET",
                     headers: {
@@ -377,7 +380,7 @@ const UserDashboard: React.FC = () => {
     const fetchTodayFoodLogs = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5004/api/FoodLog/today/details", {
+            const response = await fetch(`${API_URL}/api/FoodLog/today/details`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -409,7 +412,7 @@ const UserDashboard: React.FC = () => {
     const handleResetWater = async () => {
         try {
             const token = localStorage.getItem("token");
-            await fetch("http://localhost:5004/api/WaterLog/today/reset", {
+            await fetch(`${API_URL}/api/WaterLog/today/reset`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -423,7 +426,7 @@ const UserDashboard: React.FC = () => {
     const handleResetFood = async () => {
         try {
             const token = localStorage.getItem("token");
-            await fetch("http://localhost:5004/api/FoodLog/today/reset", {
+            await fetch(`${API_URL}/api/FoodLog/today/reset`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -438,7 +441,7 @@ const UserDashboard: React.FC = () => {
     const handleDeleteFood = async (id: number) => {
         try {
             const token = localStorage.getItem("token");
-            await fetch(`http://localhost:5004/api/FoodLog/${id}`, {
+            await fetch(`${API_URL}/api/FoodLog/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -461,7 +464,7 @@ const UserDashboard: React.FC = () => {
                 }
 
                 const response = await fetch(
-                    "http://localhost:5004/api/user/me",
+                    `${API_URL}/api/user/me`,
                     {
                         method: "GET",
                         headers: {

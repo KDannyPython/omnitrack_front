@@ -7,7 +7,8 @@ import type {
     User,
 } from '../types';
 
-const API_BASE = 'http://localhost:5004/api';
+const API_URL = import.meta.env.VITE_API_URL;
+const API_BASE = `${API_URL}/api`;
 
 function getHeaders() {
     const token = localStorage.getItem('token');

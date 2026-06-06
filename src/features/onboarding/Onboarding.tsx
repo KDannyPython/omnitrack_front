@@ -1,4 +1,5 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import type { OnboardingData } from '../../types/onboarding';
@@ -10,6 +11,8 @@ import WeightStep from '../steps/WeightStep';
 import AgeStep from '../steps/AgeStep';
 import SummaryStep from '../steps/SummaryStep';
 import './Onboarding.css';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const TOTAL_STEPS = 6;
 const stepLabels = ['Welcome', 'Gender', 'Goal', 'Height', 'Weight', 'Age', 'Summary'];
@@ -41,7 +44,7 @@ export default function Onboarding() {
             }
 
             const response = await fetch(
-                "http://localhost:5004/api/session/complete-onboarding",
+                `${API_URL}/api/session/complete-onboarding`,
                 {
                     method: "POST",
                     headers: {

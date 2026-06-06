@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faDumbbell,
@@ -12,6 +13,8 @@ import {
     faCalendarDay
 } from "@fortawesome/free-solid-svg-icons";
 import { ExerciseItem, WorkoutExerciseLog, WorkoutLog, WorkoutType } from "./types";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface WorkoutsModalProps {
     workouts: WorkoutLog[];
@@ -46,7 +49,7 @@ const WorkoutsModal: React.FC<WorkoutsModalProps> = ({ onClose, onAddWorkout }) 
 
     const fetchExercises = async () => {
         try {
-            const res = await fetch("http://localhost:5004/api/exercise/list", {
+            const res = await fetch(`${API_URL}/api/exercise/list`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) setAvailableExercises(await res.json());
@@ -100,7 +103,7 @@ const WorkoutsModal: React.FC<WorkoutsModalProps> = ({ onClose, onAddWorkout }) 
             }))
         };
         try {
-            const res = await fetch("http://localhost:5004/api/workout/create", {
+            const res = await fetch(`${API_URL}/api/workout/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify(body)

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./Authentication.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Functie pentru decodarea JWT fara a instala librarii externe
 function parseJwt(token: string) {
@@ -36,7 +39,7 @@ const LoginPage: React.FC = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5004/api/session/auth",
+                `${API_URL}/api/session/auth`,
                 {
                     method: "POST",
                     headers: {
